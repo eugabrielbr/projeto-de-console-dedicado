@@ -6,7 +6,7 @@ int main() {
 
     const char *mouse_device = "/dev/input/mice"; 
 
-    unsigned char mouse_data[3];
+    unsigned char mouse_data[6];
 
 
     // Abre o dispositivo do mouse para leitura em modo binário
@@ -25,15 +25,23 @@ int main() {
         // Lê 3 bytes de dados do mouse
         fread(mouse_data, sizeof(unsigned char), sizeof(mouse_data), file_ptr);
 
-        
+
         int botao = (int)mouse_data[0];
+        int botao2 = (int)mouse_data[3];
         int mov_x = (int)mouse_data[1];
         int mov_y= (int)mouse_data[2];
         
-        if (botao == 9){
+        /*
+        for(int i = 0; i < 6; i++){
+            printf("%d ",(int)mouse_data[i]);
+        }
+        printf("\n");
+        */
+       
+        if ((botao == 9 && botao2 == 8) || (botao == 8 && botao2 == 9)){
             printf("botao esquerdo\n");
         }
-        else if (botao == 10){
+        else if ((botao == 10 && botao2 == 8) || (botao == 8 && botao2 == 10)){
             printf("botao direito\n");
         }
         
