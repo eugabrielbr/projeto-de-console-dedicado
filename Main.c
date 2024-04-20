@@ -62,7 +62,33 @@ void anterior_quadrante(int *lin, int *col){
       }
 }
 
+void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y){
+    if(mov_x == 1){
+      if(*col < 2) *col ++;
+    }
+    else if (mov_x == 255){
+      if(*col > 0) *col --;
+    }
+
+    if(mov_y == 1){
+      if(*lin > 0) *lin --;
+    }
+    else if (mov_y == 255){
+      if(*lin < 2) *lin ++;
+    }
+}
+
 int main(void) {
+    FILE *file_ptr;
+    const char *mouse_device = "/dev/input/mice"; 
+    unsigned char mouse_data[3];
+    // Abre o dispositivo do mouse para leitura em modo binário
+    file_ptr = fopen(mouse_device, "rb");
+    if (file_ptr == NULL ) {
+        perror("Erro ao abrir o dispositivo do mouse - botoes");
+        return 1;
+    }
+    printf("Lendo eventos do mouse...\n");
     char tabela[3][3] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
     char selec;
     int col = 0;
@@ -70,6 +96,9 @@ int main(void) {
     int cont = 0; 
     int player = 1;
     int quadrante;
+    int botao;
+    int mov_x;
+    int mov_y;
     while(1){
       printf("%d, %d\n", lin, col);
       quadrante = 0;
@@ -79,25 +108,32 @@ int main(void) {
       print(tabela);
       printf("\nquadrante: %d\n",quadrante);
       printf("player: %d\n",player);
-      selec = getchar(); //tirar quando mudar para mouse, por enq ta tendo input
+      fread(mouse_data, sizeof(unsigned char), sizeof(mouse_data), file_ptr);
+      botao = (int)mouse_data[0];
+      mov_x = (int)mouse_data[1];
+      mov_y = (int)mouse_data[2];
+      //selec = getchar(); //tirar quando mudar para mouse, por enq ta tendo input
     
       // contadores para quadrantes
-      if (selec == 'd'){ //mudar '\n' para 'r' qd for para mouse
+      if (mov_x == 255){ //mudar '\n' para 'r' qd for para mouse
         proximo_quadrante(&lin, &col);
         if (tabela[lin][col] != ' ') {
           while(tabela[lin][col] != ' ')
             proximo_quadrante(&lin, &col);
         }
       }
-      else if (selec == 'e'){ //mudar '\n' para 'r' qd for para mouse
+      else if (mov_x = 1){ //mudar '\n' para 'r' qd for para mouse
         anterior_quadrante(&lin, &col);
         if (tabela[lin][col] != ' ') {
           while(tabela[lin][col] != ' ')
             anterior_quadrante(&lin, &col);
         }
       }
-      else if (selec == 'l'){
+      if (botao == 9){
         cont += 1;
+        while(tabela[lin][col] != ' '){
+            proximo_quadrante(&lin, &col);
+        }
           if (player == 1){
               if (tabela[lin][col] == ' '){
                   tabela[lin][col] = 'X';
@@ -109,9 +145,6 @@ int main(void) {
                   tabela[lin][col] = 'O';
               }
           }
-        while(tabela[lin][col] != ' '){
-            proximo_quadrante(&lin, &col);
-        }
       }
       if(check_winner(tabela)){
         system("clear");
@@ -119,7 +152,7 @@ int main(void) {
         printf("Vitória jogador %d\n", player);
         break;
       }
-      else if(cont == 9){
+      if(cont == 9){
         system("clear");
         print(tabela);
         printf("Jogo terminou em empate\n");
@@ -129,8 +162,9 @@ int main(void) {
         player = 1;
       }
       else player = 2;
+      fflush(stdout);
       system("clear");
     }
-
+    fclose(file_ptr);
     return 0;
 }
