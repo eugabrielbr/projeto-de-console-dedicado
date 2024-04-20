@@ -30,18 +30,34 @@ int check_winner(const char tabela[3][3]){
   return 0;
 }
 
-void proximo_quadrante(int *col, int *lin){
-      if (*lin < 2){
-        *lin += 1;
+void proximo_quadrante(int *lin, int *col){
+      if (*col < 2){
+        *col += 1;
       }
       else{
-          if (*col < 2){
-            *col += 1;
-            *lin = 0;
+          if (*lin < 2){
+            *lin += 1;
+            *col = 0;
           }
           else{
             *col = 0;
             *lin = 0;
+          }    
+      }
+}
+
+void anterior_quadrante(int *lin, int *col){
+      if (*col <= 2 && *col != 0){
+        *col -= 1;
+      }
+      else{
+          if (*lin <= 2 && *lin != 0){
+            *lin -= 1;
+            *col = 2;
+          }
+          else{
+            *col = 2;
+            *lin = 2;
           }    
       }
 }
@@ -52,40 +68,50 @@ int main(void) {
     int col = 0;
     int lin = 0;
     int cont = 0; 
-    int player = 1;        
+    int player = 1;
     int quadrante;
     while(1){
-      printf("%d, %d\n", col, lin);
+      printf("%d, %d\n", lin, col);
       quadrante = 0;
-      if(col == 0) quadrante = lin + col + 1;
-      else if(col == 1) quadrante = lin+ col + 3;
-      else if (col == 2) quadrante = lin + col + 5;
+      if(lin == 0) quadrante = lin + col + 1;
+      else if(lin == 1) quadrante = lin+ col + 3;
+      else if (lin == 2) quadrante = lin + col + 5;
       print(tabela);
       printf("\nquadrante: %d\n",quadrante);
       printf("player: %d\n",player);
       selec = getchar(); //tirar quando mudar para mouse, por enq ta tendo input
     
       // contadores para quadrantes
-      if (selec == '\n'){ //mudar '\n' para 'r' qd for para mouse
-        proximo_quadrante(&col, &lin);
-        if (tabela[col][lin] != ' ') {
-          while(tabela[col][lin] != ' ')
-            proximo_quadrante(&col, &lin);
+      if (selec == 'd'){ //mudar '\n' para 'r' qd for para mouse
+        proximo_quadrante(&lin, &col);
+        if (tabela[lin][col] != ' ') {
+          while(tabela[lin][col] != ' ')
+            proximo_quadrante(&lin, &col);
+        }
+      }
+      else if (selec == 'e'){ //mudar '\n' para 'r' qd for para mouse
+        anterior_quadrante(&lin, &col);
+        if (tabela[lin][col] != ' ') {
+          while(tabela[lin][col] != ' ')
+            anterior_quadrante(&lin, &col);
         }
       }
       else if (selec == 'l'){
         cont += 1;
           if (player == 1){
-              if (tabela[col][lin] == ' '){
-                  tabela[col][lin] = 'X';
+              if (tabela[lin][col] == ' '){
+                  tabela[lin][col] = 'X';
               }
 
           }
           else{
-              if (tabela[col][lin] == ' '){
-                  tabela[col][lin] = 'O';
+              if (tabela[lin][col] == ' '){
+                  tabela[lin][col] = 'O';
               }
           }
+        while(tabela[lin][col] != ' '){
+            proximo_quadrante(&lin, &col);
+        }
       }
       if(check_winner(tabela)){
         system("clear");
