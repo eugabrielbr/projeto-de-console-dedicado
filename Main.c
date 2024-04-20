@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define SENSIBILIDADE 30;
+
 void print(char tabela[3][3]){
 
     printf("\n");
@@ -62,26 +64,42 @@ void anterior_quadrante(int *lin, int *col){
       }
 }
 
-void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y){
+void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_movx, int *sensi_movy){
+    int sensibilidade = SENSIBILIDADE;
     if(mov_x == 1){
-      if(*col < 2) *col ++;
+      *sensi_movx+= 1;
+      if(*col < 2 && *sensi_movx >= sensibilidade) {
+        *col += 1;
+        *sensi_movx = 0;
+      }
     }
     else if (mov_x == 255){
-      if(*col > 0) *col --;
+      *sensi_movx-= 1;
+      if(*col > 0 && *sensi_movx <= -sensibilidade) {
+        *col -= 1;
+        *sensi_movx = 0;
+      }
     }
-
     if(mov_y == 1){
-      if(*lin > 0) *lin --;
+      *sensi_movy+= 1;
+      if(*lin > 0 && *sensi_movy >= sensibilidade){
+       *lin -= 1;
+       *sensi_movy = 0;
+      }
     }
     else if (mov_y == 255){
-      if(*lin < 2) *lin ++;
+      *sensi_movy-= 1;
+      if(*lin < 2 && *sensi_movy <= -sensibilidade){
+        *lin += 1;
+        *sensi_movy = 0;
+      }
     }
 }
 
 int main(void) {
     FILE *file_ptr;
     const char *mouse_device = "/dev/input/mice"; 
-    unsigned char mouse_data[3];
+    unsigned char mouse_data[6];
     // Abre o dispositivo do mouse para leitura em modo binário
     file_ptr = fopen(mouse_device, "rb");
     if (file_ptr == NULL ) {
@@ -97,8 +115,11 @@ int main(void) {
     int player = 1;
     int quadrante;
     int botao;
+    int botao2;
     int mov_x;
     int mov_y;
+    int sensi_movx = 0;
+    int sensi_movy = 0;
     while(1){
       printf("%d, %d\n", lin, col);
       quadrante = 0;
@@ -112,24 +133,11 @@ int main(void) {
       botao = (int)mouse_data[0];
       mov_x = (int)mouse_data[1];
       mov_y = (int)mouse_data[2];
+      botao2 = (int)mouse_data[3];
       //selec = getchar(); //tirar quando mudar para mouse, por enq ta tendo input
     
       // contadores para quadrantes
-      if (mov_x == 255){ //mudar '\n' para 'r' qd for para mouse
-        proximo_quadrante(&lin, &col);
-        if (tabela[lin][col] != ' ') {
-          while(tabela[lin][col] != ' ')
-            proximo_quadrante(&lin, &col);
-        }
-      }
-      else if (mov_x = 1){ //mudar '\n' para 'r' qd for para mouse
-        anterior_quadrante(&lin, &col);
-        if (tabela[lin][col] != ' ') {
-          while(tabela[lin][col] != ' ')
-            anterior_quadrante(&lin, &col);
-        }
-      }
-      if (botao == 9){
+      if ((botao == 9 && botao2 == 8) || (botao == 8 && botao2 == 9)){
         cont += 1;
         while(tabela[lin][col] != ' '){
             proximo_quadrante(&lin, &col);
@@ -146,6 +154,23 @@ int main(void) {
               }
           }
       }
+      movimentacao_mouse(&lin, &col, mov_x, mov_y, &sensi_movx, &sensi_movy);
+      /*
+      if (mov_x == 255){ //mudar '\n' para 'r' qd for para mouse
+        proximo_quadrante(&lin, &col);
+        if (tabela[lin][col] != ' ') {
+          while(tabela[lin][col] != ' ')
+            proximo_quadrante(&lin, &col);
+        }
+      }
+      else if (mov_x = 1){ //mudar '\n' para 'r' qd for para mouse
+        anterior_quadrante(&lin, &col);
+        if (tabela[lin][col] != ' ') {
+          while(tabela[lin][col] != ' ')
+            anterior_quadrante(&lin, &col);
+        }
+      }
+      */
       if(check_winner(tabela)){
         system("clear");
         print(tabela);
