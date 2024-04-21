@@ -5,66 +5,65 @@
 #define SENSIBILIDADE 30;
 
 void print(char tabela[3][3]){
-
     printf("\n");
     for(int i = 0; i < 3; i++) {
-        printf("  %c  ║  %c  ║  %c ", tabela[i][0], tabela[i][1], tabela[i][2]);
-        if(i < 2) printf("\n═════╬═════╬═════\n");
+      printf("  %c  ║  %c  ║  %c ", tabela[i][0], tabela[i][1], tabela[i][2]);
+      if(i < 2) printf("\n═════╬═════╬═════\n");
     }
     printf("\n");
 }
 
 int check_winner(const char tabela[3][3]){
-  if(tabela[0][0] == tabela[1][1] && tabela[1][1] == tabela[2][2] && tabela[0][0] != ' '){
-    return 1;
-  }
-  if(tabela[0][2] == tabela[1][1] && tabela[1][1] == tabela[2][0] && tabela[0][2] != ' '){
-    return 1;
-  }
-  for(int i = 0; i < 3; i++){
-    if(tabela[0][i] == tabela[1][i] && tabela[1][i] == tabela[2][i] && tabela[0][i] != ' '){
+    if(tabela[0][0] == tabela[1][1] && tabela[1][1] == tabela[2][2] && tabela[0][0] != ' '){
       return 1;
     }
-    if(tabela[i][0] == tabela[i][1] && tabela[i][1] == tabela[i][2] && tabela[i][0] != ' '){
+    if(tabela[0][2] == tabela[1][1] && tabela[1][1] == tabela[2][0] && tabela[0][2] != ' '){
       return 1;
     }
-  }
-  return 0;
+    for(int i = 0; i < 3; i++){
+      if(tabela[0][i] == tabela[1][i] && tabela[1][i] == tabela[2][i] && tabela[0][i] != ' '){
+        return 1;
+      }
+      if(tabela[i][0] == tabela[i][1] && tabela[i][1] == tabela[i][2] && tabela[i][0] != ' '){
+        return 1;
+      }
+    }
+    return 0;
 }
 
 void proximo_quadrante(int *lin, int *col){
-      if (*col < 2){
-        *col += 1;
+    if (*col < 2){
+      *col += 1;
+    }
+    else{
+      if (*lin < 2){
+        *lin += 1;
+        *col = 0;
       }
       else{
-          if (*lin < 2){
-            *lin += 1;
-            *col = 0;
-          }
-          else{
-            *col = 0;
-            *lin = 0;
-          }    
-      }
+        *col = 0;
+        *lin = 0;
+      }    
+    }
 }
 
 void anterior_quadrante(int *lin, int *col){
-      if (*col <= 2 && *col != 0){
-        *col -= 1;
+    if (*col <= 2 && *col != 0){
+      *col -= 1;
+    }
+    else{
+      if (*lin <= 2 && *lin != 0){
+        *lin -= 1;
+        *col = 2;
       }
       else{
-          if (*lin <= 2 && *lin != 0){
-            *lin -= 1;
-            *col = 2;
-          }
-          else{
-            *col = 2;
-            *lin = 2;
-          }    
-      }
+        *col = 2;
+        *lin = 2;
+      }    
+    }
 }
 
-void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_movx, int *sensi_movy){
+void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_movx, int *sensi_movy, char tabela[3][3]){
     int sensibilidade = SENSIBILIDADE;
     if(mov_x == 1){
       *sensi_movx+= 1;
@@ -83,8 +82,8 @@ void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_mov
     if(mov_y == 1){
       *sensi_movy+= 1;
       if(*lin > 0 && *sensi_movy >= sensibilidade){
-       *lin -= 1;
-       *sensi_movy = 0;
+        *lin -= 1;
+        *sensi_movy = 0;
       }
     }
     else if (mov_y == 255){
@@ -103,21 +102,16 @@ int main(void) {
     // Abre o dispositivo do mouse para leitura em modo binário
     file_ptr = fopen(mouse_device, "rb");
     if (file_ptr == NULL ) {
-        perror("Erro ao abrir o dispositivo do mouse - botoes");
-        return 1;
+      perror("Erro ao abrir o dispositivo do mouse - botoes");
+      return 1;
     }
-    printf("Lendo eventos do mouse...\n");
     char tabela[3][3] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
     char selec;
     int col = 0;
     int lin = 0;
     int cont = 0; 
     int player = 1;
-    int quadrante;
-    int botao;
-    int botao2;
-    int mov_x;
-    int mov_y;
+    int quadrante, botao, botao2, mov_x, mov_y;
     int sensi_movx = 0;
     int sensi_movy = 0;
     while(1){
@@ -134,43 +128,21 @@ int main(void) {
       mov_x = (int)mouse_data[1];
       mov_y = (int)mouse_data[2];
       botao2 = (int)mouse_data[3];
-      //selec = getchar(); //tirar quando mudar para mouse, por enq ta tendo input
-    
       // contadores para quadrantes
-      if ((botao == 9 && botao2 == 8) || (botao == 8 && botao2 == 9)){
+      if (((botao == 9 && botao2 == 8) || (botao == 8 && botao2 == 9)) && tabela[lin][col] == ' '){
         cont += 1;
-        while(tabela[lin][col] != ' '){
-            proximo_quadrante(&lin, &col);
-        }
           if (player == 1){
-              if (tabela[lin][col] == ' '){
-                  tabela[lin][col] = 'X';
-              }
-
+            if (tabela[lin][col] == ' '){
+              tabela[lin][col] = 'X';
+            }
           }
           else{
-              if (tabela[lin][col] == ' '){
-                  tabela[lin][col] = 'O';
-              }
+            if (tabela[lin][col] == ' '){
+              tabela[lin][col] = 'O';
+            }
           }
       }
-      movimentacao_mouse(&lin, &col, mov_x, mov_y, &sensi_movx, &sensi_movy);
-      /*
-      if (mov_x == 255){ //mudar '\n' para 'r' qd for para mouse
-        proximo_quadrante(&lin, &col);
-        if (tabela[lin][col] != ' ') {
-          while(tabela[lin][col] != ' ')
-            proximo_quadrante(&lin, &col);
-        }
-      }
-      else if (mov_x = 1){ //mudar '\n' para 'r' qd for para mouse
-        anterior_quadrante(&lin, &col);
-        if (tabela[lin][col] != ' ') {
-          while(tabela[lin][col] != ' ')
-            anterior_quadrante(&lin, &col);
-        }
-      }
-      */
+      movimentacao_mouse(&lin, &col, mov_x, mov_y, &sensi_movx, &sensi_movy, tabela);
       if(check_winner(tabela)){
         system("clear");
         print(tabela);
