@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define SENSIBILIDADE 30;
+#define SENSIBILIDADE 25;
 
 void print(char tabela[3][3]){
     printf("\n");
@@ -63,37 +63,42 @@ void anterior_quadrante(int *lin, int *col){
     }
 }
 
-void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_movx, int *sensi_movy, char tabela[3][3]){
+void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_movx, int *sensi_movy){
     int sensibilidade = SENSIBILIDADE;
-    if(mov_x == 1){
+    if(mov_x >= 1 && mov_x <= 60){
       *sensi_movx+= 1;
-      if(*col < 2 && *sensi_movx >= sensibilidade) {
+      if(*col < 2 && (*sensi_movx >= sensibilidade)) {
         *col += 1;
         *sensi_movx = 0;
+        *sensi_movy = 0;
       }
     }
-    else if (mov_x == 255){
+    else if (mov_x >= 200){
       *sensi_movx-= 1;
-      if(*col > 0 && *sensi_movx <= -sensibilidade) {
+      if(*col > 0 &&( *sensi_movx <= -sensibilidade)) {
         *col -= 1;
         *sensi_movx = 0;
+        *sensi_movy = 0;
       }
     }
-    if(mov_y == 1){
+    if(mov_y >= 1 && mov_y <= 60){
       *sensi_movy+= 1;
-      if(*lin > 0 && *sensi_movy >= sensibilidade){
+      if(*lin > 0 &&( *sensi_movy >= sensibilidade)){
         *lin -= 1;
         *sensi_movy = 0;
+    *sensi_movx = 0;
       }
     }
-    else if (mov_y == 255){
+    else if (mov_y >= 200){
       *sensi_movy-= 1;
-      if(*lin < 2 && *sensi_movy <= -sensibilidade){
+      if(*lin < 2 &&( *sensi_movy <= -sensibilidade)){
         *lin += 1;
         *sensi_movy = 0;
+        *sensi_movx = 0;
       }
     }
 }
+
 
 int main(void) {
     FILE *file_ptr;
@@ -115,6 +120,7 @@ int main(void) {
     int sensi_movx = 0;
     int sensi_movy = 0;
     while(1){
+      //printf("%d, %d, %d, %d, %d, %d\n", mouse_data[0], mouse_data[1], mouse_data[2], mouse_data[3], mouse_data[4], mouse_data[5]);
       printf("%d, %d\n", lin, col);
       quadrante = 0;
       if(lin == 0) quadrante = lin + col + 1;
@@ -142,7 +148,7 @@ int main(void) {
             }
           }
       }
-      movimentacao_mouse(&lin, &col, mov_x, mov_y, &sensi_movx, &sensi_movy, tabela);
+      movimentacao_mouse(&lin, &col, mov_x, mov_y, &sensi_movx, &sensi_movy);
       if(check_winner(tabela)){
         system("clear");
         print(tabela);
