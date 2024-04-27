@@ -4,10 +4,38 @@
 
 #define SENSIBILIDADE 25;
 
-void print(char tabela[3][3]){
+#define padrao "\033[0m"
+#define vermelho "\033[1;41m"
+#define verde "\033[1;42m"
+
+
+void print_tabela(char tabela[3][3]){
     printf("\n");
     for(int i = 0; i < 3; i++) {
-      printf("  %c  ║  %c  ║  %c ", tabela[i][0], tabela[i][1], tabela[i][2]);
+      printf("  %c  ", tabela[i][0]);
+      printf("║");
+      printf("  %c  ",tabela[i][1]);
+      printf("║");
+      printf("  %c ",tabela[i][2]);
+      if(i < 2) printf("\n═════╬═════╬═════\n");
+    }
+    printf("\n");
+}
+
+void print_tabela_colorida(char tabela[3][3], int lin, int col){
+    printf("\n");
+    for(int i = 0; i < 3; i++) {
+      if(lin == i && col == 0 && tabela[i][0] == ' ') printf(verde"  %c  "padrao, tabela[i][0]);
+      else if(lin == i && col == 0 && tabela[i][0] != ' ') printf(vermelho"  %c  "padrao, tabela[i][0]);
+      else printf("  %c  ", tabela[i][0]);
+      printf("║");
+      if(lin == i && col == 1 && tabela[i][1] == ' ') printf(verde"  %c  "padrao,tabela[i][1]);
+      else if(lin == i && col == 1 && tabela[i][1] != ' ') printf(vermelho"  %c  "padrao, tabela[i][1]);
+      else printf("  %c  ",tabela[i][1]);
+      printf("║");
+      if(lin == i && col == 2 && tabela[i][2] == ' ') printf(verde"  %c  "padrao,tabela[i][2]);
+      else if(lin == i && col == 2 && tabela[i][2] != ' ') printf(vermelho"  %c  "padrao, tabela[i][2]);
+      else printf("  %c  ",tabela[i][2]);
       if(i < 2) printf("\n═════╬═════╬═════\n");
     }
     printf("\n");
@@ -63,7 +91,22 @@ void anterior_quadrante(int *lin, int *col){
     }
 }
 
-void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_movx, int *sensi_movy){
+int clique_mouse(int botao, int botao2, char tabela[3][3], unsigned char mouse_data[6], int *cont, int player, int lin, int col){
+    if ((((botao == 9 || botao2 == 9) && (mouse_data[5] == 0 && mouse_data[4] == 0)) || ((botao == 9 && botao2 == 8) || (botao == 8 && botao2 == 9))) && tabela[lin][col] == ' '){
+      *cont += 1;
+      if (player == 1){
+        tabela[lin][col] = 'X';
+        return 1;
+      }
+      else{
+        tabela[lin][col] = 'O';
+        return 1;
+      }
+    }
+    return 0;
+}
+
+int movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_movx, int *sensi_movy){
     int sensibilidade = SENSIBILIDADE;
     if(mov_x >= 1 && mov_x <= 60){
       *sensi_movx+= 1;
@@ -71,6 +114,7 @@ void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_mov
         *col += 1;
         *sensi_movx = 0;
         *sensi_movy = 0;
+        return 1;
       }
     }
     else if (mov_x >= 200){
@@ -79,6 +123,7 @@ void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_mov
         *col -= 1;
         *sensi_movx = 0;
         *sensi_movy = 0;
+        return 1;
       }
     }
     if(mov_y >= 1 && mov_y <= 60){
@@ -86,7 +131,8 @@ void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_mov
       if(*lin > 0 &&( *sensi_movy >= sensibilidade)){
         *lin -= 1;
         *sensi_movy = 0;
-    *sensi_movx = 0;
+        *sensi_movx = 0;
+        return 1;
       }
     }
     else if (mov_y >= 200){
@@ -95,8 +141,42 @@ void movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_mov
         *lin += 1;
         *sensi_movy = 0;
         *sensi_movx = 0;
+        return 1;
       }
     }
+    return 0;
+}
+
+
+void print_jogo(char tabela[3][3], unsigned char mouse_data[6], int quadrante, int player, int lin, int col){
+    system("clear");
+    printf("%d, %d, %d, %d, %d, %d\n", mouse_data[0], mouse_data[1], mouse_data[2], mouse_data[3], mouse_data[4], mouse_data[5]);
+    printf("%d, %d\n", lin, col);
+    print_tabela_colorida(tabela, lin, col);
+    printf("\nquadrante: %d\n",quadrante);
+    printf("player: %d\n",player);
+}
+
+void calcular_quadrante(int *quadrante, int lin, int col){
+    if(lin == 0) *quadrante = lin + col + 1;
+    else if(lin == 1) *quadrante = lin+ col + 3;
+    else if (lin == 2) *quadrante = lin + col + 5;
+}
+
+int finalizar_jogo(int cont, char tabela[3][3], int player){
+    if(check_winner(tabela)){
+      system("clear");
+      print_tabela(tabela);
+      printf("Vitória jogador %d\n", player);
+      return 1;
+    }
+    else if(cont == 9){
+      system("clear");
+      print_tabela(tabela);
+      printf("Jogo terminou em empate\n");
+      return 1;
+    }
+    return 0;
 }
 
 
@@ -111,7 +191,6 @@ int main(void) {
       return 1;
     }
     char tabela[3][3] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
-    char selec;
     int col = 0;
     int lin = 0;
     int cont = 0; 
@@ -119,46 +198,20 @@ int main(void) {
     int quadrante, botao, botao2, mov_x, mov_y;
     int sensi_movx = 0;
     int sensi_movy = 0;
+    int v1,v2 = 1;
     while(1){
-      //printf("%d, %d, %d, %d, %d, %d\n", mouse_data[0], mouse_data[1], mouse_data[2], mouse_data[3], mouse_data[4], mouse_data[5]);
-      printf("%d, %d\n", lin, col);
-      quadrante = 0;
-      if(lin == 0) quadrante = lin + col + 1;
-      else if(lin == 1) quadrante = lin+ col + 3;
-      else if (lin == 2) quadrante = lin + col + 5;
-      print(tabela);
-      printf("\nquadrante: %d\n",quadrante);
-      printf("player: %d\n",player);
+      calcular_quadrante(&quadrante, lin, col);
+      if((v1 || v2) || (cont == 0)){
+        print_jogo(tabela, mouse_data, quadrante, player, lin, col);
+      }
       fread(mouse_data, sizeof(unsigned char), sizeof(mouse_data), file_ptr);
       botao = (int)mouse_data[0];
       mov_x = (int)mouse_data[1];
       mov_y = (int)mouse_data[2];
       botao2 = (int)mouse_data[3];
-      // contadores para quadrantes
-      if (((botao == 9 && botao2 == 8) || (botao == 8 && botao2 == 9)) && tabela[lin][col] == ' '){
-        cont += 1;
-          if (player == 1){
-            if (tabela[lin][col] == ' '){
-              tabela[lin][col] = 'X';
-            }
-          }
-          else{
-            if (tabela[lin][col] == ' '){
-              tabela[lin][col] = 'O';
-            }
-          }
-      }
-      movimentacao_mouse(&lin, &col, mov_x, mov_y, &sensi_movx, &sensi_movy);
-      if(check_winner(tabela)){
-        system("clear");
-        print(tabela);
-        printf("Vitória jogador %d\n", player);
-        break;
-      }
-      if(cont == 9){
-        system("clear");
-        print(tabela);
-        printf("Jogo terminou em empate\n");
+      v1 = clique_mouse(botao, botao2, tabela, mouse_data, &cont, player, lin, col);
+      v2 = movimentacao_mouse(&lin, &col, mov_x, mov_y, &sensi_movx, &sensi_movy);
+      if(finalizar_jogo(cont, tabela, player)){
         break;
       }
       if(cont % 2 == 0){
@@ -166,7 +219,6 @@ int main(void) {
       }
       else player = 2;
       fflush(stdout);
-      system("clear");
     }
     fclose(file_ptr);
     return 0;
