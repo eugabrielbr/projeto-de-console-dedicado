@@ -1,74 +1,102 @@
+#include "Header.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int main() {
-    FILE *file_ptr;
+#define SENSIBILIDADE 25;
 
-    const char *mouse_device = "/dev/input/mice"; 
-
-    unsigned char mouse_data[6];
-
-
-    // Abre o dispositivo do mouse para leitura em modo binário
-    file_ptr = fopen(mouse_device, "rb");
+#define padrao "\033[0m"
+#define vermelho "\033[1;41m"
+#define verde "\033[1;42m"
 
 
-    if (file_ptr == NULL ) {
-        perror("Erro ao abrir o dispositivo do mouse - botoes");
+void proximo_quadrante(int *lin, int *col){
+    if (*col < 2){
+      *col += 1;
+    }
+    else{
+      if (*lin < 2){
+        *lin += 1;
+        *col = 0;
+      }
+      else{
+        *col = 0;
+        *lin = 0;
+      }    
+    }
+}
+
+void anterior_quadrante(int *lin, int *col){
+    if (*col <= 2 && *col != 0){
+      *col -= 1;
+    }
+    else{
+      if (*lin <= 2 && *lin != 0){
+        *lin -= 1;
+        *col = 2;
+      }
+      else{
+        *col = 2;
+        *lin = 2;
+      }    
+    }
+}
+
+
+
+int clique_mouse(int botao, int botao2, char tabela[3][3], unsigned char mouse_data[6], int *cont, int player, int lin, int col){
+    if ((((botao == 9 || botao2 == 9) && (mouse_data[5] == 0 && mouse_data[4] == 0)) || ((botao == 9 && botao2 == 8) || (botao == 8 && botao2 == 9))) && tabela[lin][col] == ' '){
+      *cont += 1;
+      if (player == 1){
+        tabela[lin][col] = 'X';
         return 1;
+      }
+      else{
+        tabela[lin][col] = 'O';
+        return 1;
+      }
     }
+    return 0;
+}
 
 
-    printf("Lendo eventos do mouse...\n");
-
-    while (1) {
-        // Lê 3 bytes de dados do mouse
-        fread(mouse_data, sizeof(unsigned char), sizeof(mouse_data), file_ptr);
-
-
-        int botao = (int)mouse_data[0];
-        int botao2 = (int)mouse_data[3];
-        int mov_x = (int)mouse_data[1];
-        int mov_y= (int)mouse_data[2];
-        
-        /*
-        for(int i = 0; i < 6; i++){
-            printf("%d ",(int)mouse_data[i]);
-        }
-        printf("\n");
-        */
-       
-        if ((botao == 9 && botao2 == 8) || (botao == 8 && botao2 == 9)){
-            printf("botao esquerdo\n");
-        }
-        else if ((botao == 10 && botao2 == 8) || (botao == 8 && botao2 == 10)){
-            printf("botao direito\n");
-        }
-        
-    
-        if(mov_x == 1){
-            printf("movendo direita\n");
-        }
-        else if (mov_x == 255){
-            printf("movendo esquerda\n");
-        }
-
-    
-
-        if(mov_y == 1){
-            printf("movendo cima\n");
-        }
-        else if (mov_y == 255){
-            printf("movendo baixo\n");
-        }
-        
-
-        fflush(stdout);
+int movimentacao_mouse(int *lin, int *col, int mov_x, int mov_y, int *sensi_movx, int *sensi_movy){
+    int sensibilidade = SENSIBILIDADE;
+    if(mov_x >= 1 && mov_x <= 60){
+      *sensi_movx+= 1;
+      if(*col < 2 && (*sensi_movx >= sensibilidade)) {
+        *col += 1;
+        *sensi_movx = 0;
+        *sensi_movy = 0;
+        return 1;
+      }
     }
-
-   
-    fclose(file_ptr);
-  
-
+    else if (mov_x >= 200){
+      *sensi_movx-= 1;
+      if(*col > 0 &&( *sensi_movx <= -sensibilidade)) {
+        *col -= 1;
+        *sensi_movx = 0;
+        *sensi_movy = 0;
+        return 1;
+      }
+    }
+    if(mov_y >= 1 && mov_y <= 60){
+      *sensi_movy+= 1;
+      if(*lin > 0 &&( *sensi_movy >= sensibilidade)){
+        *lin -= 1;
+        *sensi_movy = 0;
+        *sensi_movx = 0;
+        return 1;
+      }
+    }
+    else if (mov_y >= 200){
+      *sensi_movy-= 1;
+      if(*lin < 2 &&( *sensi_movy <= -sensibilidade)){
+        *lin += 1;
+        *sensi_movy = 0;
+        *sensi_movx = 0;
+        return 1;
+      }
+    }
     return 0;
 }
