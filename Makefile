@@ -7,7 +7,7 @@ Game.o: Header.h
 	
 	gcc -c Game.c 
 
-Mouse.o:
+Mouse.o: Header.h
 
 	gcc -c Mouse.c
 
