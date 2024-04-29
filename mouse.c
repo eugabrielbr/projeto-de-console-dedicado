@@ -8,7 +8,7 @@
 #define padrao "\033[0m"
 #define vermelho "\033[1;41m"
 #define verde "\033[1;42m"
-
+//
 
 void proximo_quadrante(int *lin, int *col){
     if (*col < 2){
