@@ -9,6 +9,20 @@
 #define vermelho "\033[1;41m"
 #define verde "\033[1;42m"
 
+
+void print_menu(){
+    system("clear");
+    printf("__________________ _______        _________ _______  _______        _________ _______  _______\n");
+    printf("\\__   __/\\__   __/(  ____ \\       \\__   __/(  ___  )(  ____ \\       \\__   __/(  ___  )(  ____ \\\n");
+    printf("   ) (      ) (   | (    \\/          ) (   | (   ) || (    \\/          ) (   | (   ) || (    \\/\n");
+    printf("   | |      | |   | |       _____    | |   | (___) || |       _____    | |   | |   | || (__\n");
+    printf("   | |      | |   | |      (_____)   | |   |  ___  || |      (_____)   | |   | |   | ||  __)\n");
+    printf("   | |      | |   | |                | |   | (   ) || |                | |   | |   | || (\n");
+    printf("   | |   ___) (___| (____/\\          | |   | )   ( || (____/\\          | |   | (___) || (____/\\\n");
+    printf("   )_(   \\_______/(_______/          )_(   |/     \\|(_______/          )_(   (_______)(_______/\n");
+    printf("\n\n                              [B1] Iniciar jogo        [B2] Sair\n");
+}
+
 void print_tabela(char tabela[3][3]){
     printf("\n");
     for(int i = 0; i < 3; i++) {
@@ -105,8 +119,6 @@ int check_winner(const char tabela[3][3], int *lin1, int *col1, int *lin2, int *
 
 void print_jogo(char tabela[3][3], unsigned char mouse_data[6], int quadrante, int player, int lin, int col){
     system("clear");
-    printf("%d, %d, %d, %d, %d, %d\n", mouse_data[0], mouse_data[1], mouse_data[2], mouse_data[3], mouse_data[4], mouse_data[5]);
-    printf("%d, %d\n", lin, col);
     print_tabela_colorida(tabela, lin, col);
     printf("\nquadrante: %d\n",quadrante);
     printf("player: %d\n",player);
@@ -124,13 +136,13 @@ int finalizar_jogo(int cont, char tabela[3][3], int player, int *lin1, int *col1
     if(check_winner(tabela, lin1, col1, lin2, col2, lin3, col3)){
       system("clear");
       print_tabela_resultado(tabela, lin1, col1, lin2, col2, lin3, col3);
-      printf("Vitória jogador %d\n", player);
+      printf("\nVitória jogador %d\n", player);
       return 1;
     }
     else if(cont == 9){
       system("clear");
       print_tabela(tabela);
-      printf("Jogo terminou em empate\n");
+      printf("\nJogo terminou em empate\n");
       return 1;
     }
     return 0;
