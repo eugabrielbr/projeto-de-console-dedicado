@@ -25,13 +25,13 @@ int reset(void){
       
       KEY_read(&data);
       
-      if(data == 1) {
+      if(data == 8) {
         
         KEY_close();
         return 1;
       }
       
-      if(data == 2){
+      if(data == 4){
         
         KEY_close();
         return 2;
@@ -71,18 +71,17 @@ int main(void) {
     int sensi_movy = 0;
     int v1,v2 = 1;
     int lin1, col1, lin2, col2, lin3, col3;
-
-    if(first) {
-      iniciar = reset();
-      if(iniciar == 2) game = 0;
-    }
-
+    int primeiro_print = 1;
+    print_menu();
+    iniciar = reset();
+    if(iniciar == 2) game = 0;
     while(iniciar == 1){
       
       calcular_quadrante(&quadrante, lin, col);
       
-      if((v1 || v2) || (cont == 0)){
+      if((v1 || v2) || (primeiro_print == 1)){
         print_jogo(tabela, mouse_data, quadrante, player, lin, col);
+	primeiro_print = 0;
       }
       
       fread(mouse_data, sizeof(unsigned char), sizeof(mouse_data), file_ptr);
@@ -95,6 +94,7 @@ int main(void) {
       v2 = movimentacao_mouse(&lin, &col, mov_x, mov_y, &sensi_movx, &sensi_movy);
 
       if(finalizar_jogo(cont, tabela, player, &lin1, &col1, &lin2, &col2, &lin3, &col3)){
+	printf("\nPressione [B1] para voltar ao menu do jogo ou [B2] para finalizar.\n"); 
         int v = reset();
         first = 0;
         if(v == 1) break;
@@ -111,12 +111,11 @@ int main(void) {
 
       fflush(stdout);
     }
-    
     fclose(file_ptr);
   
   }while(game);
 
   KEY_close();
-  printf("Finalizou o jogo\n");
+  printf("\nFinalizou o jogo.\n\n");
   return 0;
 }
