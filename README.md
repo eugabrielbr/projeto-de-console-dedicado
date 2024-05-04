@@ -44,7 +44,14 @@
 
   Dentro das funções de movimento do mouse, é utilizada uma variável contadora para auxiliar no acumular do movimento do mouse ao longo do tempo. Isso permite   determinar se o movimento foi suficiente para ser considerado uma ação do usuário. Quando o contador é incrementado, significa que houve uma captura de movimento   para a direita, e quando é decrementado, uma captura de movimento para a esquerda. Além disso, há variáveis de sensibilidade nas funções que precisam ser zeradas   ao captar o movimento, evitando que movimentos anteriores influenciem na detecção de movimentos futuros, garantindo que cada movimento seja tratado de forma   independente e precisa durante o loop do jogo.
 </div>
+<h4>- Funcionamento do jogo</h4>
+<div style="margin-top: 50px;">
+  <p></p>
+  Com base nas informações obtidas sobre o movimento do mouse e os cliques, o funcionamento do jogo foi implementado. O jogo apresenta uma tabela 3x3 no terminal, seguindo o formato do jogo da velha, com espaços em branco. A movimentação do mouse é refletida no preenchimento do quadrante selecionado, destacado pela cor verde, indicando que o quadrante está disponível para seleção. Conforme o mouse é movido, o quadrante verde se move correspondendo ao movimento.
 
+<p></p>
+Ao clicar com o botão esquerdo do mouse, o jogador insere um marcador (X ou O) na posição selecionada, indicando se é o jogador 1 ou o jogador 2, respectivamente. Se o usuário tentar selecionar um quadrante já preenchido, o quadrante é destacado em vermelho, indicando que não pode ser selecionado novamente. Assim, o jogo continua até que um dos jogadores vença o desafio.
+</div>
     
 
 
