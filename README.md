@@ -52,6 +52,15 @@
 <p></p>
 Ao clicar com o botão esquerdo do mouse, o jogador insere um marcador (X ou O) na posição selecionada, indicando se é o jogador 1 ou o jogador 2, respectivamente. Se o usuário tentar selecionar um quadrante já preenchido, o quadrante é destacado em vermelho, indicando que não pode ser selecionado novamente. Assim, o jogo continua até que um dos jogadores vença o desafio.
 </div>
-    
+
+
+<h4>- Componentes da placa</h4>
+    <div style="margin-top: 50px;">
+Para facilitar certas operações durante o jogo, como iniciar ou encerrar uma partida, os botões do kit de desenvolvimento DE1-SoC foram empregados. Esses botões, conhecidos como pushbuttons, foram identificados no código como "KEY". Para implementar essa funcionalidade, utilizamos a documentação fornecida pela placa, que oferecia um código básico para abrir, ler e fechar o arquivo do pushbutton. Esse procedimento foi adotado devido à natureza do arquivo, onde abrimos o arquivo para acessar suas informações, verificamos o sinal recebido e, em seguida, fechamos o arquivo novamente.
+
+Os botões utilizados foram o pushbutton 01 e 02 do kit de desenvolvimento. Capturamos os sinais desses botões através de condições, verificando se o valor da variável "data" (onde está armazenado o estado dos botões) era igual a 8, indicando que o primeiro botão foi pressionado, ou igual a 4, representando o segundo botão. Essa lógica se estende até o bit menos significativo.
+
+Dessa forma, ao pressionar o botão 1, o jogo é iniciado, e ao pressionar o botão 2, o jogo é encerrado. No entanto, é importante observar que essa funcionalidade está disponível apenas no início do jogo, ou seja, logo após a compilação do código. Não é possível iniciar ou encerrar o jogo durante sua execução.
+
 
 
