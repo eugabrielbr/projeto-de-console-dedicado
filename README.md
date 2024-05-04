@@ -16,4 +16,42 @@
   <p>
   Diante desse cenário, foi proposto o desenvolvimento de um console que implementa uma versão do jogo da velha. Este console deve operar em uma interface de modo texto, acessível via terminal, e permitir a interação de dois jogadores. A escolha das posições no tabuleiro e a confirmação das jogadas devem ser realizadas através de um mouse conectado a uma das portas USB do Kit de desenvolvimento DE1-SoC. Além disso, os botões e chaves disponíveis na placa podem ser utilizados para controlar o jogo, como iniciar, pausar e continuar. Os LEDs e displays 7-segmentos também podem ser empregados para representar outras informações, conforme necessário.
     </p>
+
+  <p>
+    Requisitos
+    
+    - O código deve ser escrito em linguagem C
+    - O sistema só poderá utilizar os componentes disponíveis na placa
+    - A escolha de quadrante e confirmação de jogada devem ser feitas pela movimentação e cliques do mouse
+  </p>
 </h3>
+
+<h2>Metodologia aplicada</h2>
+<h3>
+  <p>O densenvolver do projeto se deu atraves das sessões tutoriais na qual auxiliou o grupo a cumprir com os objetivos propostos.
+  Com isso, atraves da primeira sessão de laboratorio foi apresentado a placa na qual ocorreria o tralho, e a partir dai, foi-se desenvolvido as habilidades necessarias para a implementação do projeto
+
+    
+    
+- Captação do mouse
+  <div style="margin-top: 50px;">
+   Para capturar o comportamento do mouse através do Linux, acessamos o diretório `/dev/input`, onde estão listados todos os dispositivos de hardware externos conectados ao sistema, como mouse, teclado, entre outros. A partir desse conhecimento, pudemos analisar o movimento do mouse utilizando o comando `sudo xxd -b mice`, o qual nos permitiu capturar os movimentos e cliques do mouse e receber essas informações em formato binário através do terminal. Com essa captura realizada, pudemos adicionar suas funcionalidades ao código.
+
+  A captação do movimento do mouse é realizada através da leitura dos dados do dispositivo de entrada do mouse, que é acessado como um arquivo no sistema operacional Linux. O utilizamos a função `fread` para ler os dados do mouse, os quais são armazenados em um array de caracteres chamado `mouse_data`.
+
+  Esses dados representam os eventos gerados pelo movimento e cliques do mouse. Cada vez que o mouse é movido ou um botão é pressionado, um evento é registrado e   seus detalhes são enviados para o sistema operacional, que os disponibiliza para leitura pelo programa.
+
+  Neste caso, os eventos do mouse são representados pelos seis primeiros bytes do array `mouse_data`. O primeiro byte representa os botões do mouse, onde o bit 0 (menos significativo) corresponde ao botão esquerdo, o bit 1 ao botão direito e o bit 2 ao botão do meio. Os bytes seguintes representam os movimentos do mouse ao longo dos eixos x e y, respectivamente, indicando a direção e magnitude do movimento.
+
+  Esses dados são interpretados para determinar se houve movimento do mouse e/ou cliques nos botões. Dependendo dos valores lidos nos bytes do array `mouse_data`, as funções `clique_mouse` e `movimentacao_mouse` decidem como o cursor deve se mover e se uma jogada deve ser registrada no tabuleiro do jogo da velha.
+
+  Dentro das funções de movimento do mouse, é utilizada uma variável contadora para auxiliar no acumular do movimento do mouse ao longo do tempo. Isso permite   determinar se o movimento foi suficiente para ser considerado uma ação do usuário. Quando o contador é incrementado, significa que houve uma captura de movimento   para a direita, e quando é decrementado, uma captura de movimento para a esquerda. Além disso, há variáveis de sensibilidade nas funções que precisam ser zeradas   ao captar o movimento, evitando que movimentos anteriores influenciem na detecção de movimentos futuros, garantindo que cada movimento seja tratado de forma   independente e precisa durante o loop do jogo.
+</div>
+
+    
+  
+
+
+
+</h4>
+
