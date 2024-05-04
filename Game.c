@@ -150,3 +150,4 @@ int finalizar_jogo(int cont, char tabela[3][3], int player, int *lin1, int *col1
     return 0; // Retorna 0 indicando que o jogo ainda não acabou
 }
 
+
