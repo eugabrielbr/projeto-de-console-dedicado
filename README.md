@@ -27,9 +27,7 @@
 </h3>
 
 <h2>Metodologia aplicada</h2>
-  <p>O densenvolver do projeto se deu atraves das sessões tutoriais na qual auxiliou o grupo a cumprir com os objetivos propostos.
-  Com isso, atraves da primeira sessão de laboratorio foi apresentado a placa na qual ocorreria o tralho, e a partir dai, foi-se desenvolvido as habilidades necessarias para a implementação do projeto
-
+  <p>O desenvolvimento do projeto se deu por meio de sessões tutoriais, as quais auxiliaram o grupo a cumprir os objetivos propostos. Através da primeira sessão de laboratório, foi apresentada a placa na qual o trabalho seria realizado. A partir daí, foram desenvolvidas as habilidades necessárias para a implementação do projeto.
     
     
 <h4>- Captação do mouse</h4>
