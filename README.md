@@ -27,13 +27,12 @@
 </h3>
 
 <h2>Metodologia aplicada</h2>
-<h3>
   <p>O densenvolver do projeto se deu atraves das sessões tutoriais na qual auxiliou o grupo a cumprir com os objetivos propostos.
   Com isso, atraves da primeira sessão de laboratorio foi apresentado a placa na qual ocorreria o tralho, e a partir dai, foi-se desenvolvido as habilidades necessarias para a implementação do projeto
 
     
     
-- Captação do mouse
+<h4>- Captação do mouse</h4>
   <div style="margin-top: 50px;">
    Para capturar o comportamento do mouse através do Linux, acessamos o diretório `/dev/input`, onde estão listados todos os dispositivos de hardware externos conectados ao sistema, como mouse, teclado, entre outros. A partir desse conhecimento, pudemos analisar o movimento do mouse utilizando o comando `sudo xxd -b mice`, o qual nos permitiu capturar os movimentos e cliques do mouse e receber essas informações em formato binário através do terminal. Com essa captura realizada, pudemos adicionar suas funcionalidades ao código.
 
@@ -49,9 +48,5 @@
 </div>
 
     
-  
 
-
-
-</h4>
 
