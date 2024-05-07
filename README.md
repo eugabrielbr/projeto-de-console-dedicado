@@ -47,12 +47,21 @@
 <h4>- Funcionamento do jogo</h4>
 <div style="margin-top: 50px;">
   <p></p>
-  Com base nas informações obtidas sobre o movimento do mouse e os cliques, o funcionamento do jogo foi implementado. O jogo apresenta uma tabela 3x3 no terminal, seguindo o formato do jogo da velha, com espaços em branco. A movimentação do mouse é refletida no preenchimento do quadrante selecionado, destacado pela cor verde, indicando que o quadrante está disponível para seleção. Conforme o mouse é movido, o quadrante verde se move correspondendo ao movimento.
+  Com base nas informações obtidas sobre o movimento do mouse e os cliques, o funcionamento do jogo foi implementado. O jogo apresenta uma tabela 3x3 no terminal, seguindo o formato do jogo da velha, com espaços em branco. A movimentação do mouse é refletida no preenchimento do quadrante selecionado, destacado pela cor verde (Figura 1), indicando que o quadrante está disponível para seleção. Conforme o mouse é movido, o quadrante verde se move correspondendo ao movimento.
 
 <p></p>
-Ao clicar com o botão esquerdo do mouse, o jogador insere um marcador (X ou O) na posição selecionada, indicando se é o jogador 1 ou o jogador 2, respectivamente. Se o usuário tentar selecionar um quadrante já preenchido, o quadrante é destacado em vermelho, indicando que não pode ser selecionado novamente. Assim, o jogo continua até que um dos jogadores vença o desafio.
+Ao clicar com o botão esquerdo do mouse, o jogador insere um marcador (X ou O) na posição selecionada, indicando se é o jogador 1 ou o jogador 2, respectivamente. Se o usuário tentar selecionar um quadrante já preenchido, o quadrante é destacado em vermelho (Figura 2), indicando que não pode ser selecionado novamente. Assim, o jogo continua até que um dos jogadores vença o desafio.
 </div>
 
+<div align="center"> 
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/a0e104cd-3376-4e62-ae37-ed172887e48f" width="700px" />
+</div>
+<p align="center"><strong>Figura 1.</strong></p>
+
+<div align="center"> 
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/956023f5-26a6-4b35-a604-901b55a2f035" width="700px" />
+</div>
+<p align="center"><strong>Figura 2.</strong></p>
 
 <h4>- Componentes da placa</h4>
     <div style="margin-top: 50px;">
@@ -61,6 +70,72 @@ Para facilitar certas operações durante o jogo, como iniciar ou encerrar uma p
 Os botões utilizados foram o pushbutton 01 e 02 do kit de desenvolvimento. Capturamos os sinais desses botões através de condições, verificando se o valor da variável "data" (onde está armazenado o estado dos botões) era igual a 8, indicando que o primeiro botão foi pressionado, ou igual a 4, representando o segundo botão. Essa lógica se estende até o bit menos significativo.
 
 Dessa forma, ao pressionar o botão 1, o jogo é iniciado, e ao pressionar o botão 2, o jogo é encerrado. No entanto, é importante observar que essa funcionalidade está disponível apenas no início do jogo, ou seja, logo após a compilação do código. Não é possível iniciar ou encerrar o jogo durante sua execução.
+
+<h4>- Testes e resultados</h4>
+  <div style="margin-top: 50px;">
+    Com a conclusão do projeto foi necessario a afirmação de que o jogo funcionava de forma adequada, cumprindo todos os requisitos, sendo assim foi realizado alguns testes de funcionamento do game. Ao compilar e executar o projeto, será necesario pressionar um dos botões da placa, neste caso, o botão especifico é o botão KEY3, com isso feito, aparecerá como na figura 3.
+<p></p>
+
+<div align="center"> 
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/34c7af5e-90ce-4ee9-9b65-52d08f6db669" width="700px" />
+</div>
+<p align="center"><strong>Figura 3.</strong></p>
+
+<div style="margin-top: 50px;">
+    Após o aparecimento dessas informações, deve-se pressionar novamente no mesmo botão para que o jogo se inicie, após o ato, o jogo inicia com um tabuleiro 3x3, e um quadrado verde indicando o local selecionado, como na figura 2: 
+</div>
+<p></p>
+
+
+ <div style="margin-top: 50px;">
+    Com o jogo iniciado, pode-se movimentar o mouse, para esquerda, para direita, para cima e para baixo, com o intuito de alterar a posição do quadrante, e assim escolhendo onde se deve fazer a jogada. Com isso, a progressão do jogo se dá até que um dos jogadores venca a partida, podendo ser vitoria do jogador 1 (Figura 4) ou vitoria do jogador 2 (Figura 5), além dessas duas possibilidades, há tambem, a hipotese de ocorrer um empate (Figura 6). 
+<p></p>
+
+<div align="center"> 
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/e735c815-7c32-4ca6-86ca-23063262b9ed" width="700px" />
+</div>
+<p align="center"><strong>Figura 4.</strong></p>
+
+<div align="center"> 
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/28e6e49b-f3e5-4138-b304-591936b1cb77" width="700px" />
+</div>
+<p align="center"><strong>Figura 5.</strong></p>
+
+<div align="center"> 
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/23f0c46a-45a0-4649-b7f5-aaa5de8ab078" width="700px" />
+</div>
+<p align="center"><strong>Figura 6.</strong></p>
+
+  </div>
+
+<h2>- Execução do projeto</h2>
+ <div style="margin-top: 50px;">
+ Para iniciar o jogo, é necessário seguir os seguintes passos para obter o código-fonte, compilar o código em C e executá-lo em um dispositivo FPGA DE1-SoC. 
+
+**Passo 1: Clonar o Repositório**
+
+Abra o terminal e execute o seguinte comando para obter o código do repositório:
+
+
+      git clone https://github.com/eugabrielbr/projeto-de-console-dedicado.git 
+
+**Passo 2: Compile o codigo em C**
+
+
+      make 
+      sudo ./Main.exe 
+
+**Passo 3: Para limpar o make**
+
+
+
+      make clean
+
+<h2>- Conclusão</h2>
+ <div style="margin-top: 50px;">
+    
+<p></p>
+
 
 
 
