@@ -26,10 +26,31 @@
   </p>
 </h3>
 
+<h2>- Equipe</h2>
+<uL>
+  <li><a href="https://github.com/Armaaaaaaaaaaaaaaaaaaaaaaaaaaando">Armando de Lima Almeida</a></li>
+  <li><a href="https://github.com/DiogoDSJ">Diogo dos Santos de Jesus</a></li>
+  <li><a href="https://github.com/eugabrielbr">Gabriel Silva dos Santos</a></li>
+</ul>
+
+<h2>- Sumário</h2>
+<div id="sumario">
+<ul>
+        <li><a href="#mouse">  Captação do mouse</a></li>
+        <li><a href="#funcionamento">  Funcionamento do jogo</a></li>
+        <li><a href="#placa"> Componentes da placa</a></li>
+        <li><a href="#teste"> Testes </a></li>
+        <li><a href="#conclusao"> Conclusão </a></li>
+        <li><a href="#execucao"> Execução do Projeto </a></li>
+        <li><a href="#referencias"> Referências </a></li>
+</ul>
+</div>
+
+
 <h2>Metodologia aplicada</h2>
   <p>O desenvolvimento do projeto se deu por meio de sessões tutoriais, as quais auxiliaram o grupo a cumprir os objetivos propostos. Através da primeira sessão de laboratório, foi apresentada a placa na qual o trabalho seria realizado. A partir daí, foram desenvolvidas as habilidades necessárias para a implementação do projeto.
-    
-    
+
+<div id="mouse">
 <h4>- Captação do mouse</h4>
   <div style="margin-top: 50px;">
    Para capturar o comportamento do mouse através do Linux, acessamos o diretório `/dev/input`, onde estão listados todos os dispositivos de hardware externos conectados ao sistema, como mouse, teclado, entre outros. A partir desse conhecimento, pudemos analisar o movimento do mouse utilizando o comando `sudo xxd -b mice`, o qual nos permitiu capturar os movimentos e cliques do mouse e receber essas informações em formato binário através do terminal. Com essa captura realizada, pudemos adicionar suas funcionalidades ao código.
@@ -44,6 +65,8 @@
 
   Dentro das funções de movimento do mouse, é utilizada uma variável contadora para auxiliar no acumular do movimento do mouse ao longo do tempo. Isso permite   determinar se o movimento foi suficiente para ser considerado uma ação do usuário. Quando o contador é incrementado, significa que houve uma captura de movimento   para a direita, e quando é decrementado, uma captura de movimento para a esquerda. Além disso, há variáveis de sensibilidade nas funções que precisam ser zeradas   ao captar o movimento, evitando que movimentos anteriores influenciem na detecção de movimentos futuros, garantindo que cada movimento seja tratado de forma   independente e precisa durante o loop do jogo.
 </div>
+
+<div id="funcionamento">
 <h4>- Funcionamento do jogo</h4>
 <div style="margin-top: 50px;">
   <p></p>
@@ -63,6 +86,7 @@ Ao clicar com o botão esquerdo do mouse, o jogador insere um marcador (X ou O) 
 </div>
 <p align="center"><strong>Figura 2.</strong></p>
 
+<div id="placa">
 <h4>- Componentes da placa</h4>
     <div style="margin-top: 50px;">
 Para facilitar certas operações durante o jogo, como iniciar ou encerrar uma partida, os botões do kit de desenvolvimento DE1-SoC foram empregados. Esses botões, conhecidos como pushbuttons, foram identificados no código como "KEY". Para implementar essa funcionalidade, utilizamos a documentação fornecida pela placa, que oferecia um código básico para abrir, ler e fechar o arquivo do pushbutton. Esse procedimento foi adotado devido à natureza do arquivo, onde abrimos o arquivo para acessar suas informações, verificamos o sinal recebido e, em seguida, fechamos o arquivo novamente.
@@ -71,9 +95,11 @@ Os botões utilizados foram o pushbutton 01 e 02 do kit de desenvolvimento. Capt
 
 Dessa forma, ao pressionar o botão 1, o jogo é iniciado, e ao pressionar o botão 2, o jogo é encerrado. No entanto, é importante observar que essa funcionalidade está disponível apenas no início do jogo, ou seja, logo após a compilação do código. Não é possível iniciar ou encerrar o jogo durante sua execução.
 
+<div id="teste">
 <h4>- Testes e resultados</h4>
   <div style="margin-top: 50px;">
-    Com a conclusão do projeto foi necessario a afirmação de que o jogo funcionava de forma adequada, cumprindo todos os requisitos, sendo assim foi realizado alguns testes de funcionamento do game. Ao compilar e executar o projeto, será necesario pressionar um dos botões da placa, neste caso, o botão especifico é o botão KEY3, com isso feito, aparecerá como na figura 3.
+    
+Com a conclusão do projeto, foi necessário confirmar que o jogo funcionava de forma adequada, atendendo a todos os requisitos estabelecidos. Como parte deste processo, foram realizados testes de funcionamento do jogo. Ao compilar e executar o projeto, é necessário pressionar um dos botões da placa. Neste caso, o botão específico é o botão KEY3. Após seguir este procedimento, a interface do jogo será exibida conforme ilustrado na Figura 3.
 <p></p>
 
 <div align="center"> 
@@ -82,13 +108,13 @@ Dessa forma, ao pressionar o botão 1, o jogo é iniciado, e ao pressionar o bot
 <p align="center"><strong>Figura 3.</strong></p>
 
 <div style="margin-top: 50px;">
-    Após o aparecimento dessas informações, deve-se pressionar novamente no mesmo botão para que o jogo se inicie, após o ato, o jogo inicia com um tabuleiro 3x3, e um quadrado verde indicando o local selecionado, como na figura 2: 
+   Após o aparecimento dessas informações, é necessário pressionar novamente o mesmo botão para iniciar o jogo. Após este procedimento, o jogo é iniciado com um tabuleiro 3x3, e um quadrado verde indicando a posição selecionada, como mostrado na Figura 2:
 </div>
 <p></p>
 
 
  <div style="margin-top: 50px;">
-    Com o jogo iniciado, pode-se movimentar o mouse, para esquerda, para direita, para cima e para baixo, com o intuito de alterar a posição do quadrante, e assim escolhendo onde se deve fazer a jogada. Com isso, a progressão do jogo se dá até que um dos jogadores venca a partida, podendo ser vitoria do jogador 1 (Figura 4) ou vitoria do jogador 2 (Figura 5), além dessas duas possibilidades, há tambem, a hipotese de ocorrer um empate (Figura 6). 
+    Com o jogo iniciado, é possível movimentar o cursor do mouse para a esquerda, direita, para cima e para baixo, a fim de alterar a posição do quadrante e selecionar onde fazer a jogada. A progressão do jogo continua até que um dos jogadores vença a partida, podendo ser a vitória do jogador 1 (Figura 4) ou do jogador 2 (Figura 5). Além dessas duas possibilidades, há também a chance de ocorrer um empate (Figura 6).
 <p></p>
 
 <div align="center"> 
@@ -107,7 +133,22 @@ Dessa forma, ao pressionar o botão 1, o jogo é iniciado, e ao pressionar o bot
 <p align="center"><strong>Figura 6.</strong></p>
 
   </div>
+  
+<div id="conclusao">
+<h2>- Conclusão</h2>
+<div style="margin-top: 50px;">
+  O propósito do projeto foi proporcionar aos integrantes do projeto uma compreensão mais profunda da comunicação entre o kit de desenvolvimento DE1-SoC e o mouse, com foco na identificação do tipo de comunicação entre esses dois componentes, a fim de formular o funcionamento do jogo da velha. O experimento foi altamente bem-sucedido, uma vez que todos os objetivos foram alcançados, atendendo plenamente aos requisitos pré-estabelecidos.
+  <p></p>
 
+Além disso, o desenvolvimento do projeto proporcionou uma ampla expansão do conhecimento no campo dos sistemas digitais. Foi possível compreender como os componentes externos se comunicam com a máquina, bem como onde e como capturar essas informações e manipulá-las para criar diversos cenários. Adicionalmente, o projeto permitiu uma imersão no funcionamento dos componentes do kit de desenvolvimento, como a utilização dos pushbuttons para iniciar e encerrar o jogo, respectivamente.
+
+A experiência adquirida durante este projeto não apenas cumpriu seus objetivos educacionais, mas também proporcionou aos integrantes do projeto uma base sólida de compreensão dos conceitos fundamentais de sistemas digitais e sua aplicação prática. Este conhecimento não apenas beneficia o desenvolvimento de projetos futuros, mas também promove uma visão mais abrangente e crítica no campo da tecnologia.
+
+
+  
+</div>
+
+<div id="execucao">
 <h2>- Execução do projeto</h2>
  <div style="margin-top: 50px;">
  Para iniciar o jogo, é necessário seguir os seguintes passos para obter o código-fonte, compilar o código em C e executá-lo em um dispositivo FPGA DE1-SoC. 
@@ -131,9 +172,12 @@ Abra o terminal e execute o seguinte comando para obter o código do repositóri
 
       make clean
 
-<h2>- Conclusão</h2>
+<div id="referencias">
+<h2>- Referências</h2>
  <div style="margin-top: 50px;">
-    
+    - FPGA ACADEMY. Disponível em: https://fpgacademy.org/. Acesso em: 25 de abril de 2024.
+   <p></p>
+    - Piazza, JEFF. Exploring /dev/input. Disponivel em: https://thehackerdiary.wordpress.com/2017/04/21/exploring-devinput-1/. Acesso em: 07 de abril de 2024.
 <p></p>
 
 
