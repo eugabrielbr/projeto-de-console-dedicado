@@ -53,7 +53,12 @@
 <div id="mouse">
 <h4>- Captação do mouse</h4>
   <div style="margin-top: 50px;">
-   Para capturar o comportamento do mouse através do Linux, acessamos o diretório `/dev/input`, onde estão listados todos os dispositivos de hardware externos conectados ao sistema, como mouse, teclado, entre outros. A partir desse conhecimento, pudemos analisar o movimento do mouse utilizando o comando `sudo xxd -b mice`, o qual nos permitiu capturar os movimentos e cliques do mouse e receber essas informações em formato binário através do terminal. Com essa captura realizada, pudemos adicionar suas funcionalidades ao código.
+   Para capturar o comportamento do mouse através do Linux, acessamos o diretório `/dev/input`, onde estão listados todos os dispositivos de entrada conectados ao sistema, como mouse, teclado, entre outros. A partir desse conhecimento, pudemos analisar o comportamento do arquivo utilizando o comando `sudo xxd -b mice`, o qual nos permitiu obeservar as alterações dos registros e receber essas informações em formato binário através do terminal (Figura 1). Cada byte, apresenta um comportamento diferente ao realizar alguma interação com o mouse.
+
+<div align="center"> 
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/129075181/3304f4c7-4661-4230-b8f3-60e1b84037c8" width="500px" />
+</div>
+<p align="center"><strong>Figura 1.</strong></p>
 
   A captação do movimento do mouse é realizada através da leitura dos dados do dispositivo de entrada do mouse, que é acessado como um arquivo no sistema operacional Linux. O utilizamos a função `fread` para ler os dados do mouse, os quais são armazenados em um array de caracteres chamado `mouse_data`.
 
@@ -70,21 +75,21 @@
 <h4>- Funcionamento do jogo</h4>
 <div style="margin-top: 50px;">
   <p></p>
-  Com base nas informações obtidas sobre o movimento do mouse e os cliques, o funcionamento do jogo foi implementado. O jogo apresenta uma tabela 3x3 no terminal, seguindo o formato do jogo da velha, com espaços em branco. A movimentação do mouse é refletida no preenchimento do quadrante selecionado, destacado pela cor verde (Figura 1), indicando que o quadrante está disponível para seleção. Conforme o mouse é movido, o quadrante verde se move correspondendo ao movimento.
+  Com base nas informações obtidas sobre o movimento do mouse e os cliques, o funcionamento do jogo foi implementado. O jogo apresenta uma tabela 3x3 no terminal, seguindo o formato do jogo da velha, com espaços em branco. A movimentação do mouse é refletida no preenchimento do quadrante selecionado, destacado pela cor verde (Figura 2), indicando que o quadrante está disponível para seleção. Conforme o mouse é movido, o quadrante verde se move correspondendo ao movimento.
 
 <p></p>
-Ao clicar com o botão esquerdo do mouse, o jogador insere um marcador (X ou O) na posição selecionada, indicando se é o jogador 1 ou o jogador 2, respectivamente. Se o usuário tentar selecionar um quadrante já preenchido, o quadrante é destacado em vermelho (Figura 2), indicando que não pode ser selecionado novamente. Assim, o jogo continua até que um dos jogadores vença o desafio.
+Ao clicar com o botão esquerdo do mouse, o jogador insere um marcador (X ou O) na posição selecionada, indicando se é o jogador 1 ou o jogador 2, respectivamente. Se o usuário tentar selecionar um quadrante já preenchido, o quadrante é destacado em vermelho (Figura 3), indicando que não pode ser selecionado novamente. Assim, o jogo continua até que um dos jogadores vença o desafio.
 </div>
 
 <div align="center"> 
   <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/a0e104cd-3376-4e62-ae37-ed172887e48f" width="700px" />
 </div>
-<p align="center"><strong>Figura 1.</strong></p>
+<p align="center"><strong>Figura 2.</strong></p>
 
 <div align="center"> 
   <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/956023f5-26a6-4b35-a604-901b55a2f035" width="700px" />
 </div>
-<p align="center"><strong>Figura 2.</strong></p>
+<p align="center"><strong>Figura 3.</strong></p>
 
 <div id="placa">
 <h4>- Componentes da placa</h4>
@@ -99,13 +104,13 @@ Dessa forma, ao pressionar o botão 1, o jogo é iniciado, e ao pressionar o bot
 <h4>- Testes e resultados</h4>
   <div style="margin-top: 50px;">
     
-Com a conclusão do projeto, foi necessário confirmar que o jogo funcionava de forma adequada, atendendo a todos os requisitos estabelecidos. Como parte deste processo, foram realizados testes de funcionamento do jogo. Ao compilar e executar o projeto, é necessário pressionar um dos botões da placa. Neste caso, o botão específico é o botão KEY3. Após seguir este procedimento, a interface do jogo será exibida conforme ilustrado na Figura 3.
+Com a conclusão do projeto, foi necessário confirmar que o jogo funcionava de forma adequada, atendendo a todos os requisitos estabelecidos. Como parte deste processo, foram realizados testes de funcionamento do jogo. Ao compilar e executar o projeto, é necessário pressionar um dos botões da placa. Neste caso, o botão específico é o botão KEY3. Após seguir este procedimento, a interface do jogo será exibida conforme ilustrado na Figura 4.
 <p></p>
 
 <div align="center"> 
   <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/34c7af5e-90ce-4ee9-9b65-52d08f6db669" width="700px" />
 </div>
-<p align="center"><strong>Figura 3.</strong></p>
+<p align="center"><strong>Figura 4.</strong></p>
 
 <div style="margin-top: 50px;">
    Após o aparecimento dessas informações, é necessário pressionar novamente o mesmo botão para iniciar o jogo. Após este procedimento, o jogo é iniciado com um tabuleiro 3x3, e um quadrado verde indicando a posição selecionada, como mostrado na Figura 2:
@@ -114,23 +119,23 @@ Com a conclusão do projeto, foi necessário confirmar que o jogo funcionava de 
 
 
  <div style="margin-top: 50px;">
-    Com o jogo iniciado, é possível movimentar o cursor do mouse para a esquerda, direita, para cima e para baixo, a fim de alterar a posição do quadrante e selecionar onde fazer a jogada. A progressão do jogo continua até que um dos jogadores vença a partida, podendo ser a vitória do jogador 1 (Figura 4) ou do jogador 2 (Figura 5). Além dessas duas possibilidades, há também a chance de ocorrer um empate (Figura 6).
+    Com o jogo iniciado, é possível movimentar o cursor do mouse para a esquerda, direita, para cima e para baixo, a fim de alterar a posição do quadrante e selecionar onde fazer a jogada. A progressão do jogo continua até que um dos jogadores vença a partida, podendo ser a vitória do jogador 1 (Figura 5) ou do jogador 2 (Figura 6). Além dessas duas possibilidades, há também a chance de ocorrer um empate (Figura 7).
 <p></p>
 
 <div align="center"> 
   <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/e735c815-7c32-4ca6-86ca-23063262b9ed" width="700px" />
 </div>
-<p align="center"><strong>Figura 4.</strong></p>
+<p align="center"><strong>Figura 5.</strong></p>
 
 <div align="center"> 
   <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/28e6e49b-f3e5-4138-b304-591936b1cb77" width="700px" />
 </div>
-<p align="center"><strong>Figura 5.</strong></p>
+<p align="center"><strong>Figura 6.</strong></p>
 
 <div align="center"> 
   <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/111616936/23f0c46a-45a0-4649-b7f5-aaa5de8ab078" width="700px" />
 </div>
-<p align="center"><strong>Figura 6.</strong></p>
+<p align="center"><strong>Figura 7.</strong></p>
 
   </div>
    <div style="margin-top: 50px;">
@@ -141,7 +146,7 @@ Com a conclusão do projeto, foi necessário confirmar que o jogo funcionava de 
 <div align="center"> 
   <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/107954198/fdf10546-b4d8-4f2e-8b3f-6509275a5d2c" width="700px" />
 </div>
-<p align="center"><strong>Figura 7.</strong></p>
+<p align="center"><strong>Figura 8.</strong></p>
 
 <div id="conclusao">
 <h2>- Conclusão</h2>
@@ -164,18 +169,18 @@ A experiência adquirida durante este projeto não apenas cumpriu seus objetivos
 
 **Passo 1: Clonar o Repositório**
 
-Abra o terminal e execute o seguinte comando para obter o código do repositório:
+Abra o terminal e execute o seguinte comando para clonar o repositório:
 
 
       git clone https://github.com/eugabrielbr/projeto-de-console-dedicado.git 
 
-**Passo 2: Compile o codigo em C**
+**Passo 2: Compile os codigos usando o make execute o arquivo Main.exe**
 
 
       make 
       sudo ./Main.exe 
 
-**Passo 3: Para limpar o make**
+**Passo 3: Para limpar objetos .o e Main.exe gerados na compilação**
 
 
 
