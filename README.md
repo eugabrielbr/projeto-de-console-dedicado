@@ -139,7 +139,7 @@ Com a conclusão do projeto, foi necessário confirmar que o jogo funcionava de 
 
   </div>
    <div style="margin-top: 50px;">
-    Abaixo (Figura 7), é apresentado uma abstração do funcionamento do programa em forma de fluxograma, facilitando assim, o entendimento. 
+    Abaixo (Figura 8), é apresentado uma abstração do funcionamento do programa em forma de fluxograma, facilitando assim, o entendimento. 
 <p></p>
 
 
