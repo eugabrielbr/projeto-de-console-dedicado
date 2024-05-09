@@ -139,7 +139,7 @@ Com a conclusão do projeto, foi necessário confirmar que o jogo funcionava de 
 
 
 <div align="center"> 
-  <img src = "https://private-user-images.githubusercontent.com/107954198/329243321-fdf10546-b4d8-4f2e-8b3f-6509275a5d2c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTUyNTgxODgsIm5iZiI6MTcxNTI1Nzg4OCwicGF0aCI6Ii8xMDc5NTQxOTgvMzI5MjQzMzIxLWZkZjEwNTQ2LWI0ZDgtNGYyZS04YjNmLTY1MDkyNzVhNWQyYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNTA5JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDUwOVQxMjMxMjhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02NjRhN2Y5OTUxNjAxZjdlODMzNjNmNWNlZmQ5OGVmNTU0ZDM5ZDMyYjg1MzU0NmNiNmZlYmVmNDI5NjRlODhjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.1X2xLrWVH6--dPvuUuaUx77xJ8nWRC2h5gbMdhFeIbs" />
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/assets/107954198/fdf10546-b4d8-4f2e-8b3f-6509275a5d2c" width="700px" />
 </div>
 <p align="center"><strong>Figura 7.</strong></p>
 
