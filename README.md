@@ -46,6 +46,45 @@
 </ul>
 </div>
 
+<h2>Componentes utilizados </h2>
+<div style="margin-top: 50px;">
+  <h4>- Placa de Desenvolvimento DE1-SoC</h4>
+A DE1-SoC é uma plataforma de desenvolvimento integrando um processador dual-core ARM Cortex-A9 com um FPGA Cyclone V da Intel. Com uma variedade de periféricos como display de 7 segmentos, porta Ethernet, USB, porta de áudio, entre outros, é ideal para projetos que demandam integração entre software e hardware.
+<h4>- Mouse Óptico DELL</h4>
+
+O M-UVDEL1 é um mouse óptico com fio, oferecendo dois botões padrão, uma roda central clicável e um design ambidestro. Utiliza um laser óptico vermelho para rastreamento.
+
+<h4>- Linguagem de Programação C e Compilador GNU</h4>
+
+
+A escolha da linguagem C é motivada por sua eficiência, portabilidade e ampla adoção em sistemas embarcados. O GCC (GNU Compiler Collection) é um conjunto integrado de compiladores suportando várias linguagens, incluindo C. Com diversas opções de linha de comando, facilita a personalização de acordo com as necessidades do desenvolvedor.
+
+<h4>- Ambiente de Desenvolvimento Visual Studio Code (VSCode)</h4>
+
+
+O VSCode, desenvolvido pela Microsoft, é um editor de código aberto e gratuito com destaque de sintaxe, conclusão automática de código e depuração integrada. Suportando diversas linguagens de programação, é altamente personalizável através de suas extensões.
+<h4>- Arquitetura da Placa DE1-SoC</h4>
+
+
+A DE1-SoC consiste no Hard Processor System (HPS) com um processador dual-core ARM Cortex-A9, memória DDR3 e dispositivos periféricos, junto com o FPGA Cyclone V. A comunicação entre o processador e o FPGA ocorre através da porta JTAG.
+<h4>- Recursos do Processador ARM Cortex-A9</h4>
+
+
+Baseado em uma arquitetura RISC, o Cortex-A9 possui registradores de uso geral, instruções Load e Store para transferência de dados entre memória e registradores, e uma estrutura de registro especial incluindo o contador de programa (PC) e o registrador de status do programa (CPSR).
+
+<h4>- Memória</h4>
+
+
+O HPS inclui uma interface DDR3 para acesso à memória de 1 GB, organizada em palavras de 32 bits. Essa memória é comumente utilizada para armazenamento de programas e dados.
+
+<h4>- Periféricos Utilizados</h4>
+
+
+- Gigabit Ethernet: Permite comunicação de alta velocidade até 1 Gbps, indicada pelo LED verde (LEDG).
+- USB Host: Possui duas portas USB 2.0 tipo-A com um controlador SMSC USB3300 e hub de 2 portas para expansão.
+- Botões: Quatro botões disponíveis com leitura armazenada em registradores de dados, interruptmask e edgecapture, para controle e detecção de pressionamento.
+
+</div>
 
 <h2>Metodologia aplicada</h2>
   <p>O desenvolvimento do projeto se deu por meio de sessões tutoriais, as quais auxiliaram o grupo a cumprir os objetivos propostos. Através da primeira sessão de laboratório, foi apresentada a placa na qual o trabalho seria realizado. A partir daí, foram desenvolvidas as habilidades necessárias para a implementação do projeto.
