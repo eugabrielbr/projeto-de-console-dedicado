@@ -133,7 +133,16 @@ Com a conclusão do projeto, foi necessário confirmar que o jogo funcionava de 
 <p align="center"><strong>Figura 6.</strong></p>
 
   </div>
-  
+   <div style="margin-top: 50px;">
+    Abaixo (Figura 7), é apresentado uma abstração do funcionamento do programa em forma de fluxograma, facilitando assim, o entendimento. 
+<p></p>
+
+
+<div align="center"> 
+  <img src = "https://github.com/eugabrielbr/projeto-de-console-dedicado/issues/6#issue-2287591064" width="700px" />
+</div>
+<p align="center"><strong>Figura 7.</strong></p>
+
 <div id="conclusao">
 <h2>- Conclusão</h2>
 <div style="margin-top: 50px;">
